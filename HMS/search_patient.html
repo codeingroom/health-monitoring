@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Patient</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Styling for search container */
+        .search-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f8f9fa; /* Light gray background color */
+        }
+
+        /* Styling for form inputs */
+        .form-group {
+            margin-bottom: 20px;
+        }
+		 /* Header styling */
+        header {
+            background-color: #007bff; /* Header background color */
+            color: white; /* Text color */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Header right content */
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Header link styling */
+        .header-link {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .header-link:hover {
+            text-decoration: underline;
+        }
+
+		 .header-left img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+		/* Styling for table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+		/* Popup Form styling */
+        #popupContainer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 999;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+		<div class="header-left">
+            
+            <h2>Health Monitoring System</h2>
+        </div>
+        <div class="header-right">
+            <a href="dkbord.html" class="header-link">Home</a>
+            <a href="search_patient.html" class="header-link">Search Patient</a>
+			<a href="health_information.html" class="header-link">Patient Health</a>
+            <a href="#" class="header-link" onclick="openPopup()">Change Password</a>
+            <a href="index.html" class="header-link">Logout</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <h2 class="mb-4">Search Patient</h2>
+            <form id="searchForm" onsubmit="searchPatient(); return false;">
+                <div class="form-group">
+                    <label for="patientId">Enter Patient ID:</label>
+                    <input type="text" class="form-control" id="patientId" name="patientId" placeholder="Enter Patient ID" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+
+            <!-- Patient Data Table (Initially hidden) -->
+            <div id="patientData" style="display: none;">
+                <h3 class="mt-4">Patient Data</h3>
+                <table id="patientTable">
+                    <thead>
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Gender</th>
+                            <th>Date of Birth</th>
+                            <th>Age</th>
+                            <th>Contact Number</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patientTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<!-- Popup Form -->
+    <div id="popupContainer">
+        <div class="popup-form">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h3>Change Password</h3>
+            <form>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Enter New Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openPopup() {
+            document.getElementById('popupContainer').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popupContainer').style.display = 'none';
+        }
+    </script>
+
+    <script>
+        let patientData = []; // Array to store patient data
+
+        function searchPatient() {
+            const patientId = document.getElementById('patientId').value;
+            
+            // Simulated patient data for demo purposes
+            if (patientId === '77') {
+                patientData = [
+                    {
+                        patientName: 'John Doe',
+                        gender: 'Male',
+                        dob: '1990-05-15',
+                        age: 32,
+                        contactNo: '1234567890'
+                    },
+                    {
+                        patientName: 'Jane Smith',
+                        gender: 'Female',
+                        dob: '1985-10-25',
+                        age: 37,
+                        contactNo: '9876543210'
+                    }
+                    // Add more patient objects as needed
+                ];
+
+                // Display patient data in table
+                displayPatientData();
+            } else {
+                alert('Patient ID not found.');
+            }
+        }
+
+        function displayPatientData() {
+            const tableBody = document.getElementById('patientTableBody');
+            tableBody.innerHTML = ''; // Clear existing table rows
+
+            // Populate table with patient data
+            patientData.forEach(patient => {
+                const { patientName, gender, dob, age, contactNo } = patient;
+                const newRow = `
+                    <tr>
+                        <td>${patientName}</td>
+                        <td>${gender}</td>
+                        <td>${dob}</td>
+                        <td>${age}</td>
+                        <td>${contactNo}</td>
+                        <td>
+                            <button onclick="editPatient('${patientName}')" class="btn btn-primary">Edit</button>
+                            <button onclick="deletePatient('${patientName}')" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.innerHTML += newRow;
+            });
+
+            // Show patient data table
+            document.getElementById('patientData').style.display = 'block';
+        }
+
+        function editPatient(patientName) {
+            alert(`Editing patient: ${patientName}`);
+            // Implement edit functionality here
+        }
+
+        function deletePatient(patientName) {
+            alert(`Deleting patient: ${patientName}`);
+            // Implement delete functionality here
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

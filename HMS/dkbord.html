@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin HMS Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Header styling */
+        header {
+            background-color: #007bff; /* Header background color */
+            color: white; /* Text color */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Header right content */
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Header link styling */
+        .header-link {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .header-link:hover {
+            text-decoration: underline;
+        }
+
+        /* About Section styling */
+        .about-section {
+            padding: 50px 0;
+            background-color: #f8f9fa; /* Light gray background color */
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%; /* Set maximum width to 100% */
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .about-description {
+            max-width: 800px; /* Max width for the description */
+            margin: 0 auto; /* Center align the description */
+            margin-top: 30px;
+        }
+
+        .about-description h2 {
+            color: #007bff; /* Blue heading color */
+        }
+
+        /* Popup Form styling */
+        #popupContainer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 999;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            cursor: pointer;
+        }
+		 .header-left img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+	
+    </style>
+</head>
+<body>
+    <header>
+		<div class="header-left">
+            
+            <h2>Health Monitoring System</h2>
+        </div>
+        <div class="header-right">
+		   <a href="dkbord.html" class="header-link">Home</a>
+            <a href="patient_list.html" class="header-link">Patients List</a>
+			<a href="health_information.html" class="header-link">Patient Health</a>
+            <a href="#" class="header-link" onclick="openPopup()">Change Password</a>
+            <a href="index.html" class="header-link">Logout</a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-image">
+                <img src="about.jpg" alt="About Image">
+            </div>
+            <div class="about-description">
+                <h2>About Our Health Monitoring System</h2>
+                <p>A health monitoring system (HMS) is a tool used in hospitals to track vitals, such as body temperature, blood pressure, heart rate, and blood oxygen saturation. HMs can also monitor athletes' health. They act as an early warning system to help diagnose illnesses early, which can prevent serious damage or health problems</p></div>
+        </div>
+    </section>
+
+    <!-- Popup Form -->
+    <div id="popupContainer">
+        <div class="popup-form">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h3>Change Password</h3>
+            <form>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Enter New Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openPopup() {
+            document.getElementById('popupContainer').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popupContainer').style.display = 'none';
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

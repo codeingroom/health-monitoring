@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Information</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Styling for header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #007bff; /* Blue header background color */
+            color: #fff; /* White text color */
+        }
+
+        /* Styling for navigation links */
+        .header-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        /* Styling for patient information container */
+        .patient-info-container {
+            display: none; /* Hide patient info container by default */
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f8f9fa; /* Light gray background color */
+        }
+
+        /* Styling for information items */
+        .info-item {
+            margin-bottom: 10px;
+        }
+
+        /* Styling for hello container */
+        .hello-container {
+            display: block; /* Hide hello container by default */
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f8f9fa; /* Light gray background color */
+        }
+		
+        /* About Section styling */
+        .about-section {
+            padding: 50px 0;
+            background-color: #f8f9fa; /* Light gray background color */
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%; /* Set maximum width to 100% */
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .about-description {
+            max-width: 800px; /* Max width for the description */
+            margin: 0 auto; /* Center align the description */
+            margin-top: 30px;
+        }
+
+        .about-description h2 {
+            color: #007bff; /* Blue heading color */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with navigation links -->
+    <div class="header">
+        <div>
+            <span><strong>Health Monitoring System</strong></span>
+        </div>
+        <div class="header-links">
+            <a href="#" id="homeLink">Home</a>
+            <a href="#" id="viewReportBtn">Your Report</a>
+            <a href="#" id="changePasswordBtn">Change Password</a>
+            <a href="index.html">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Patient Information Container -->
+        <div class="patient-info-container">
+            <h2 class="mb-4">Your Health Report</h2>
+            <div class="info-item">
+                <strong>Your Name:</strong> <span id="patientName"></span>
+            </div>
+            <div class="info-item">
+                <strong>Your Heart Rate (bpm):</strong> <span id="heartRate"></span>
+            </div>
+            <div class="info-item">
+                <strong>Your Pulse Rate (bpm):</strong> <span id="pulseRate"></span>
+            </div>
+            <div class="info-item">
+                <strong>Your Glucose Level (mg/dL):</strong> <span id="glucoseLevel"></span>
+            </div>
+            <div class="info-item">
+                <strong>Your Blood Pressure (mmHg):</strong> <span id="bloodPressure"></span>
+            </div>
+            <div class="info-item">
+                <strong>Your Report Release Date:</strong> <span id="reportDate"></span>
+            </div>
+        </div>
+
+        <!-- Hello Container (Default Hidden) -->
+        <div class="hello-container">
+        <section class="about-section">
+        <div class="container">
+            <div class="about-image">
+                <img src="patient.webp" alt="About Image">
+            </div>
+            <div class="about-description">
+                <h2>About Our Health Monitoring System</h2>
+                <p>A health monitoring system (HMS) is a tool used in hospitals to track vitals, such as body temperature, blood pressure, heart rate, and blood oxygen saturation. HMs can also monitor athletes' health. They act as an early warning system to help diagnose illnesses early, which can prevent serious damage or health problems</p></div>
+        </div>
+    </section>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="newPassword">New Password:</label>
+                        <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+                    </div>
+                    <!-- Add more password change inputs if needed -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simulated patient data (replace with actual data from backend)
+        const patientData = {
+            name: "John Doe",
+            heartRate: 72,
+            pulseRate: 80,
+            glucoseLevel: 110,
+            bloodPressure: "120/80",
+            reportDate: "2024-04-20"
+        };
+
+        // Function to display patient information
+        function displayPatientInfo() {
+            document.getElementById('patientName').textContent = patientData.name;
+            document.getElementById('heartRate').textContent = patientData.heartRate;
+            document.getElementById('pulseRate').textContent = patientData.pulseRate;
+            document.getElementById('glucoseLevel').textContent = patientData.glucoseLevel;
+            document.getElementById('bloodPressure').textContent = patientData.bloodPressure;
+            document.getElementById('reportDate').textContent = patientData.reportDate;
+        }
+
+        // Call function to display patient information when page loads
+        displayPatientInfo();
+
+        // Event listener for Your Report button click
+        document.getElementById('viewReportBtn').addEventListener('click', function() {
+            // Display patient information container when Your Report button is clicked
+            document.querySelector('.patient-info-container').style.display = 'block';
+            // Hide hello container when Your Report button is clicked
+            document.querySelector('.hello-container').style.display = 'none';
+        });
+
+        // Event listener for Home link click
+        document.getElementById('homeLink').addEventListener('click', function() {
+            // Hide patient information container when Home link is clicked
+            document.querySelector('.patient-info-container').style.display = 'none';
+            // Display hello container when Home link is clicked
+            document.querySelector('.hello-container').style.display = 'block';
+        });
+
+        // Event listener for Change Password button click
+        document.getElementById('changePasswordBtn').addEventListener('click', function() {
+            // Show change password modal
+            $('#changePasswordModal').modal('show');
+        });
+    </script>
+</body>
+</html>

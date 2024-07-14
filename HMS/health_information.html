@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Health Information</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+	/* Header styling */
+        header {
+            background-color: #007bff; /* Header background color */
+            color: white; /* Text color */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Header right content */
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Header link styling */
+        .header-link {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .header-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Styling for health information container */
+        .health-info-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f8f9fa; /* Light gray background color */
+        }
+
+        /* Styling for form inputs */
+        .form-group {
+            margin-bottom: 20px;
+        }
+		/* Popup Form styling */
+        #popupContainer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 999;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+		<div class="header-left">
+            
+            <h2>Health Monitoring System</h2>
+        </div>
+        <div class="header-right">
+		   <a href="dkbord.html" class="header-link">Home</a>
+            <a href="patient_list.html" class="header-link">Patients List</a>
+            <a href="health_information.html" class="header-link">Patient Health</a>
+            <a href="#" class="header-link" onclick="openPopup()">Change Password</a>
+            <a href="index.html" class="header-link">Logout</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="health-info-container">
+            <h2 class="mb-4">Patient Health Information</h2>
+            <form id="healthInfoForm">
+                <div class="form-group">
+                    <label for="heartRate">Patient Name:</label>
+                    <input type="text" class="form-control" id="heartRate" name="heartRate" placeholder="Enter Patient Name" required>
+                </div>
+				<div class="form-group">
+                    <label for="heartRate">Heart Rate (bpm):</label>
+                    <input type="number" class="form-control" id="heartRate" name="heartRate" placeholder="Enter heart rate" required>
+                </div>
+                <div class="form-group">
+                    <label for="pulseRate">Pulse Rate (bpm):</label>
+                    <input type="number" class="form-control" id="pulseRate" name="pulseRate" placeholder="Enter pulse rate" required>
+                </div>
+                <div class="form-group">
+                    <label for="glucoseLevel">Glucose Level (mg/dL):</label>
+                    <input type="number" class="form-control" id="glucoseLevel" name="glucoseLevel" placeholder="Enter glucose level" required>
+                </div>
+                <div class="form-group">
+                    <label for="bloodPressure">Blood Pressure (mmHg):</label>
+                    <input type="text" class="form-control" id="bloodPressure" name="bloodPressure" placeholder="Enter blood pressure (e.g., 120/80)" required>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="assessHealth()">Assess Health</button>
+            </form>
+
+            <!-- Health assessment result display -->
+            <div id="healthResult" style="display: none; margin-top: 20px;"></div>
+        </div>
+    </div>
+<!-- Popup Form -->
+    <div id="popupContainer">
+        <div class="popup-form">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h3>Change Password</h3>
+            <form>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Enter New Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openPopup() {
+            document.getElementById('popupContainer').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popupContainer').style.display = 'none';
+        }
+    </script>
+
+    <script>
+        function assessHealth() {
+            const heartRate = parseFloat(document.getElementById('heartRate').value);
+            const pulseRate = parseFloat(document.getElementById('pulseRate').value);
+            const glucoseLevel = parseFloat(document.getElementById('glucoseLevel').value);
+            const bloodPressure = document.getElementById('bloodPressure').value;
+
+            // Basic health assessment logic (customize as needed)
+            let healthMessage = '';
+
+            if (heartRate >= 60 && heartRate <= 100 && pulseRate >= 60 && pulseRate <= 100 && glucoseLevel >= 70 && glucoseLevel <= 140) {
+                healthMessage = 'Heart rate, pulse rate, and glucose level are within normal range.';
+            } else {
+                healthMessage = 'One or more health parameters are outside normal range. Please consult a healthcare professional.';
+            }
+
+            // Additional logic for blood pressure assessment (example)
+            const bpValues = bloodPressure.split('/');
+            const systolic = parseInt(bpValues[0]);
+            const diastolic = parseInt(bpValues[1]);
+
+            if (systolic >= 90 && systolic <= 120 && diastolic >= 60 && diastolic <= 80) {
+                healthMessage += ' Blood pressure is within normal range.';
+            } else {
+                healthMessage += ' Blood pressure is outside normal range. Please consult a healthcare professional.';
+            }
+
+            // Display health assessment result
+            document.getElementById('healthResult').innerHTML = `<p>${healthMessage}</p>`;
+            document.getElementById('healthResult').style.display = 'block';
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

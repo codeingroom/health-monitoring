@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient List</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Styling for patient list container */
+        .patient-list-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f8f9fa; /* Light gray background color */
+        }
+
+        /* Styling for table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+		/* Header styling */
+        header {
+            background-color: #007bff; /* Header background color */
+            color: white; /* Text color */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Header right content */
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Header link styling */
+        .header-link {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .header-link:hover {
+            text-decoration: underline;
+        }
+
+	/* Popup Form styling */
+        #popupContainer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 999;
+            text-align: center;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+		<div class="header-left">
+            
+            <h2>Health Monitoring System</h2>
+        </div>
+        <div class="header-right">
+		   <a href="dkbord.html" class="header-link">Home</a>
+            <a href="patient_list.html" class="header-link">Patients List</a>
+			<a href="health_information.html" class="header-link">Patient Health</a>
+            <a href="#" class="header-link" onclick="openPopup()">Change Password</a>
+            <a href="index.html" class="header-link">Logout</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="patient-list-container">
+            <h2 class="mb-4">Patient List</h2>
+            <table>
+                <thead>
+                    <tr>
+					<th>Patient Name</th>
+                        <th>Gender</th>
+                        <th>Date of Birth</th>
+                        <th>Age</th>
+                        <th>Contact Number</th>
+                        <th>Health Report</th>
+						
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample patient data (replace with actual patient data from backend) -->
+                    <tr>
+                        <td>Abhinav</td>
+                        <td>Male</td>
+                        <td>2002-04-5</td>
+                        <td>24</td>
+                        <td>8449587821</td>
+                        
+                        <td>
+                            <button type="button" class="btn btn-primary" onclick="viewReport('John Doe', 72, 80, 110, '120/80', '2024-04-15')">View Report</button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows for other patients -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap Modal for displaying patient report -->
+    <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reportModalLabel">Patient Health Report</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="reportModalBody">
+                    <!-- Content will be dynamically populated here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Popup Form -->
+    <div id="popupContainer">
+        <div class="popup-form">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h3>Change Password</h3>
+            <form>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Enter New Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openPopup() {
+            document.getElementById('popupContainer').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popupContainer').style.display = 'none';
+        }
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function viewReport(patientName, heartRate, pulseRate, glucoseLevel, bloodPressure, date) {
+            // Prepare the report content
+            const reportContent = `
+                <p><strong>Patient Name:</strong> ${patientName}</p>
+                <p><strong>Heart Rate (bpm):</strong> ${heartRate}</p>
+                <p><strong>Pulse Rate (bpm):</strong> ${pulseRate}</p>
+                <p><strong>Glucose Level (mg/dL):</strong> ${glucoseLevel}</p>
+                <p><strong>Blood Pressure (mmHg):</strong> ${bloodPressure}</p>
+                <p><strong>Date:</strong> ${date}</p>
+            `;
+
+            // Set the modal body content
+            document.getElementById('reportModalBody').innerHTML = reportContent;
+
+            // Show the modal
+            $('#reportModal').modal('show');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Registration</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+body {
+            background-image: url('background.jpg'); /* Background image URL */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+</style>
+<body>
+    <div class="container mt-5">
+        <h1>Doctor Registration</h1>
+        <form id="doctorRegistrationForm">
+            <div class="form-group">
+                <label for="doctorName">Name:</label>
+                <input type="text" class="form-control" id="doctorName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="doctorEmail">Email:</label>
+                <input type="email" class="form-control" id="doctorEmail" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="doctorPhone">Contact Number:</label>
+                <input type="text" class="form-control" id="doctorPhone" placeholder="Enter your contact number">
+            </div>
+            <div class="form-group">
+                <label for="doctorGender">Gender:</label>
+                <select class="form-control" id="doctorGender">
+                    <option value="">Select gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <a href="index.html" class="btn btn-link mt-3">Back to Main</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
